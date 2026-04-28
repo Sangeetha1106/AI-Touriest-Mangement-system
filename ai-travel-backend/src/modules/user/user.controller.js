@@ -30,6 +30,16 @@ class UserController {
     }
   }
 
+  async getProfile(req, res, next) {
+    try {
+      const user = await userService.getById(req.user.id);
+      if (!user) return res.status(NOT_FOUND).json({ message: 'User not found' });
+      res.status(OK).json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async update(req, res, next) {
     try {
       const user = await userService.update(req.params.id, req.body);

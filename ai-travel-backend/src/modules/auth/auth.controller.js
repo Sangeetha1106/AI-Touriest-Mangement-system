@@ -1,12 +1,27 @@
 const authService = require('./auth.service');
-const { OK, CREATED, UNAUTHORIZED } = require('../../shared/constants/statusCodes');
+const { OK, CREATED, UNAUTHORIZED, BAD_REQUEST } = require('../../shared/constants/statusCodes');
 
 class AuthController {
   async register(req, res, next) {
     try {
+      const { name, email, password } = req.body;
+      if (!name || !email || !password) {
+        return res.status(BAD_REQUEST).json({ 
+          message: 'All fields (name, email, password) are required' 
+        });
+      }
+
       const user = await authService.register(req.body);
-      res.status(CREATED).json(user);
+      res.status(CREATED).json({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      });
     } catch (error) {
+      if (error.name === 'SequelizeUniqueConstraintError') {
+        return res.status(BAD_REQUEST).json({ message: 'Email already exists' });
+      }
       next(error);
     }
   }
@@ -14,6 +29,9 @@ class AuthController {
   async login(req, res, next) {
     try {
       const { email, password } = req.body;
+      if (!email || !password) {
+        return res.status(BAD_REQUEST).json({ message: 'Email and password are required' });
+      }
       const result = await authService.login(email, password);
       if (!result) {
         return res.status(UNAUTHORIZED).json({ message: 'Invalid email or password' });

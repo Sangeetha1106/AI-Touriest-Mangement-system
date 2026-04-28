@@ -7,6 +7,7 @@ const { ADMIN } = require('../../shared/constants/roles');
 const router = express.Router();
 
 router.post('/', authMiddleware, roleMiddleware(ADMIN), userController.create);
+router.get('/profile', authMiddleware, userController.getProfile);
 router.get('/', authMiddleware, roleMiddleware(ADMIN), userController.getAll);
 router.get('/:id', authMiddleware, userController.getById);
 router.put('/:id', authMiddleware, userController.update);

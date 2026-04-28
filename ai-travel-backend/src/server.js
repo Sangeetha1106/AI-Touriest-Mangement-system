@@ -1,31 +1,12 @@
-const express = require('express');
-const cors = require('cors');
+const app = require('./app');
 const { connectDB, sequelize } = require('./config/db');
 require('dotenv').config();
-// Import Routes
-const authRoutes = require('./modules/auth/auth.routes');
 
-const app = express();
 const PORT = process.env.PORT || 5000;
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-
-// Routes
-app.get("/test", (req, res) => {
-  res.send("Test route working 🚀");
-});
-
-app.use("/api/auth", authRoutes);
-
-app.get("/", (req, res) => {
-  res.send("AI Travel Backend Running 🚀");
-});
 
 // Import all models to ensure they are registered with Sequelize
 require('./modules/auth/auth.model');
+
 require('./modules/user/user.model');
 require('./modules/personalization/personalization.model');
 require('./modules/ai/ai.model');
@@ -58,7 +39,7 @@ const startServer = async () => {
 
     // Auto-create/update tables
     await sequelize.sync({ alter: true });
-    console.log('Database tables synced successfully');
+    console.log('Database synced successfully');
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

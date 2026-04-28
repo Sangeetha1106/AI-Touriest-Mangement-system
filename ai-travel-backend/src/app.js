@@ -13,8 +13,19 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Root Route
+app.get('/', (req, res) => {
+  res.send('AI Travel Management System API 🚀');
+});
+
+// Test Route
+app.get('/test', (req, res) => {
+  res.send('Test route is working! 🚀');
+});
+
 // API Routes
 app.use('/api', routes);
+
 
 // Error Handling
 app.use(errorMiddleware);
