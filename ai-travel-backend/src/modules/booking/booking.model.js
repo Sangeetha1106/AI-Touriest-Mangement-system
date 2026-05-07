@@ -3,13 +3,20 @@ const { sequelize } = require('../../config/db');
 
 const Booking = sequelize.define('Booking', {
   id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
+    allowNull: false,
+    validate: {
+      isUUID: 4
+    }
   },
   userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false
+    type: DataTypes.UUID,
+    allowNull: false,
+    validate: {
+      isUUID: 4
+    }
   },
   bookingType: {
     type: DataTypes.STRING,
@@ -19,8 +26,11 @@ const Booking = sequelize.define('Booking', {
     }
   },
   referenceId: {
-    type: DataTypes.INTEGER,
-    allowNull: false
+    type: DataTypes.UUID,
+    allowNull: false,
+    validate: {
+      isUUID: 4
+    }
   },
   startDate: {
     type: DataTypes.DATE,

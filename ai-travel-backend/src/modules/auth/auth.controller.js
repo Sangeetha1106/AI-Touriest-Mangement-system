@@ -6,8 +6,8 @@ class AuthController {
     try {
       const { name, email, password } = req.body;
       if (!name || !email || !password) {
-        return res.status(BAD_REQUEST).json({ 
-          message: 'All fields (name, email, password) are required' 
+        return res.status(BAD_REQUEST).json({
+          message: 'All fields (name, email, password) are required'
         });
       }
 
@@ -34,10 +34,12 @@ class AuthController {
       }
       const result = await authService.login(email, password);
       if (!result) {
+        console.warn(`Login failed for email: ${email}`);
         return res.status(UNAUTHORIZED).json({ message: 'Invalid email or password' });
       }
       res.status(OK).json(result);
     } catch (error) {
+      console.error('Login error:', error);
       next(error);
     }
   }

@@ -1,6 +1,6 @@
 const express = require('express');
 const notificationController = require('./notification.controller');
-const authMiddleware = require('../../shared/middleware/auth.middleware');
+const { authenticate: authMiddleware } = require('../../shared/middleware/auth.middleware');
 
 const router = express.Router();
 
@@ -12,3 +12,4 @@ router.put('/read/:id', notificationController.markAsRead);
 router.delete('/:id', notificationController.deleteNotification);
 
 module.exports = router;
+

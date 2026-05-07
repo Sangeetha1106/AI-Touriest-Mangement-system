@@ -1,6 +1,6 @@
 const express = require('express');
 const offerController = require('./offer.controller');
-const authMiddleware = require('../../shared/middleware/auth.middleware');
+const { authenticate: authMiddleware } = require('../../shared/middleware/auth.middleware');
 
 const router = express.Router();
 
@@ -11,3 +11,4 @@ router.put('/:id', authMiddleware, offerController.updateOffer);
 router.delete('/:id', authMiddleware, offerController.deleteOffer);
 
 module.exports = router;
+

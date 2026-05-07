@@ -1,6 +1,6 @@
 const express = require('express');
 const controller = require('./itinerary.controller');
-const authMiddleware = require('../../shared/middleware/auth.middleware');
+const { authenticate: authMiddleware } = require('../../shared/middleware/auth.middleware');
 const roleMiddleware = require('../../shared/middleware/role.middleware');
 const { USER, ADMIN, SUPER_ADMIN } = require('../../shared/constants/roles');
 
@@ -16,3 +16,4 @@ router.delete('/:id', controller.delete);
 
 
 module.exports = router;
+

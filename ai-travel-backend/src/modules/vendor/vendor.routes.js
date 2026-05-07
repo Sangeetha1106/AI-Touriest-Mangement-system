@@ -1,6 +1,6 @@
 const express = require('express');
 const controller = require('./vendor.controller');
-const authMiddleware = require('../../shared/middleware/auth.middleware');
+const { authenticate: authMiddleware } = require('../../shared/middleware/auth.middleware');
 const roleMiddleware = require('../../shared/middleware/role.middleware');
 const { ADMIN } = require('../../shared/constants/roles');
 const router = express.Router();
@@ -10,3 +10,4 @@ router.get('/:id', authMiddleware, controller.getById);
 router.put('/:id', authMiddleware, roleMiddleware(ADMIN), controller.update);
 router.delete('/:id', authMiddleware, roleMiddleware(ADMIN), controller.delete);
 module.exports = router;
+

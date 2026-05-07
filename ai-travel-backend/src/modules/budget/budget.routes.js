@@ -1,6 +1,6 @@
 const express = require('express');
 const controller = require('./budget.controller');
-const authMiddleware = require('../../shared/middleware/auth.middleware');
+const { authenticate: authMiddleware } = require('../../shared/middleware/auth.middleware');
 
 const router = express.Router();
 
@@ -12,3 +12,4 @@ router.put('/:id', controller.update);
 router.delete('/:id', controller.delete);
 
 module.exports = router;
+

@@ -1,6 +1,6 @@
 const express = require('express');
 const socialController = require('./social.controller');
-const authMiddleware = require('../../shared/middleware/auth.middleware');
+const { authenticate: authMiddleware } = require('../../shared/middleware/auth.middleware');
 
 const router = express.Router();
 
@@ -13,3 +13,4 @@ router.post('/comment/:id', socialController.commentPost);
 router.delete('/:id', socialController.deletePost);
 
 module.exports = router;
+

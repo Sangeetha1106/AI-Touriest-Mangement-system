@@ -1,15 +1,11 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../config/db');
 
-const Hotel = sequelize.define('Hotel', {
+const Place = sequelize.define('Place', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-    allowNull: false,
-    validate: {
-      isUUID: 4
-    }
+    primaryKey: true
   },
   name: {
     type: DataTypes.STRING,
@@ -19,23 +15,17 @@ const Hotel = sequelize.define('Hotel', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  pricePerNight: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false
-  },
-  rating: {
-    type: DataTypes.DECIMAL(3, 2),
-    defaultValue: 0.0
-  },
-  availableRooms: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0
-  },
   description: {
     type: DataTypes.TEXT
+  },
+  budget: {
+    type: DataTypes.INTEGER
+  },
+  daysRequired: {
+    type: DataTypes.INTEGER
   }
 }, {
   timestamps: true
 });
 
-module.exports = Hotel;
+module.exports = Place;

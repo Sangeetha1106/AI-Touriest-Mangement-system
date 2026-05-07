@@ -6,7 +6,22 @@ const seedData = async () => {
   try {
     console.log('🌱 Starting database seeding...');
 
-    // 1. Create default ADMIN user if not exists
+    // 1. Create default SUPER_ADMIN user if not exists
+    const superAdminExists = await User.findOne({ where: { email: 'superadmin@gmail.com' } });
+    if (!superAdminExists) {
+      const hashedSuperAdminPassword = await bcrypt.hash('superadmin123', 10);
+      await User.create({
+        name: 'Super Admin',
+        email: 'superadmin@gmail.com',
+        password: hashedSuperAdminPassword,
+        role: 'SUPER_ADMIN'
+      });
+      console.log('✅ Super Admin user created');
+    } else {
+      console.log('ℹ️ Super Admin user already exists');
+    }
+
+    // 2. Create default ADMIN user if not exists
     const adminExists = await User.findOne({ where: { email: 'admin@gmail.com' } });
     if (!adminExists) {
       const hashedAdminPassword = await bcrypt.hash('admin123', 10);
@@ -14,14 +29,14 @@ const seedData = async () => {
         name: 'Admin',
         email: 'admin@gmail.com',
         password: hashedAdminPassword,
-        role: 'admin'
+        role: 'ADMIN'
       });
       console.log('✅ Admin user created');
     } else {
       console.log('ℹ️ Admin user already exists');
     }
 
-    // 2. Create sample USER if not exists
+    // 3. Create sample USER if not exists
     const userExists = await User.findOne({ where: { email: 'user@gmail.com' } });
     if (!userExists) {
       const hashedUserPassword = await bcrypt.hash('user123', 10);
@@ -29,7 +44,7 @@ const seedData = async () => {
         name: 'Test User',
         email: 'user@gmail.com',
         password: hashedUserPassword,
-        role: 'user'
+        role: 'USER'
       });
       console.log('✅ Sample user created');
     } else {
@@ -43,3 +58,8 @@ const seedData = async () => {
 };
 
 module.exports = seedData;
+
+// Run seed if called directly
+if (require.main === module) {
+  seedData().catch(console.error);
+}

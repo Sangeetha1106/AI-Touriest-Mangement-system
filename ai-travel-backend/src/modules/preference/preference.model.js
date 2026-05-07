@@ -1,41 +1,34 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../config/db');
 
-const Hotel = sequelize.define('Hotel', {
+const Preference = sequelize.define('Preference', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-    allowNull: false,
-    validate: {
-      isUUID: 4
-    }
+    primaryKey: true
   },
-  name: {
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: false
+  },
+  destination: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  location: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  pricePerNight: {
+  budget: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false
   },
-  rating: {
-    type: DataTypes.DECIMAL(3, 2),
-    defaultValue: 0.0
-  },
-  availableRooms: {
+  days: {
     type: DataTypes.INTEGER,
-    defaultValue: 0
+    allowNull: false
   },
-  description: {
-    type: DataTypes.TEXT
+  travelType: {
+    type: DataTypes.ENUM('friends', 'family', 'couple'),
+    allowNull: false
   }
 }, {
   timestamps: true
 });
 
-module.exports = Hotel;
+module.exports = Preference;

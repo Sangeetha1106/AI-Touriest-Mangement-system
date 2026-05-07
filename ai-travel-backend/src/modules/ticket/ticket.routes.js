@@ -1,6 +1,6 @@
 const express = require('express');
 const ticketController = require('./ticket.controller');
-const authMiddleware = require('../../shared/middleware/auth.middleware');
+const { authenticate: authMiddleware } = require('../../shared/middleware/auth.middleware');
 
 const router = express.Router();
 
@@ -13,3 +13,4 @@ router.put('/:id', ticketController.updateTicketStatus);
 router.delete('/:id', ticketController.cancelTicket);
 
 module.exports = router;
+

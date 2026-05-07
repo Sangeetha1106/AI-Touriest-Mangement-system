@@ -27,6 +27,11 @@ const socialRoutes = require('../modules/social/social.routes');
 const liveDataRoutes = require('../modules/liveData/liveData.routes');
 const languageRoutes = require('../modules/language/language.routes');
 const securityRoutes = require('../modules/security/security.routes');
+const placeRoutes = require('../modules/place/place.routes');
+const preferenceRoutes = require('../modules/preference/preference.routes');
+const travelRoutes = require('./travelRoutes');
+
+
 
 // Define routes
 router.use('/auth', authRoutes);
@@ -36,7 +41,7 @@ router.use('/ai', aiRoutes);
 router.use('/itinerary', itineraryRoutes);
 router.use('/budget', budgetRoutes);
 router.use('/destination', destinationRoutes);
-router.use('/hotel', hotelRoutes);
+router.use('/hotels', hotelRoutes);
 router.use('/transport', transportRoutes);
 router.use('/ticket', ticketRoutes);
 router.use('/package', packageRoutes);
@@ -54,5 +59,10 @@ router.use('/social', socialRoutes);
 router.use('/liveData', liveDataRoutes);
 router.use('/language', languageRoutes);
 router.use('/security', securityRoutes);
+router.use('/places', placeRoutes);
+router.use('/preferences', preferenceRoutes);
+router.use('/travel', travelRoutes);
+
+
 
 module.exports = router;
